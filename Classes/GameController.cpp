@@ -1,16 +1,14 @@
 #include "GameController.h"
-#include"Edge.h"
-#include"Hero.h"
-#include"Block.h"
-GameController* GameController::create(cocos2d::Layer *layer, float positionY)
+
+GameController* GameController::create(cocos2d::Layer *layer, float positionY,std::string fileName)
 {
 	auto _ins = new GameController();
-	_ins->init(layer,positionY);
+	_ins->init(layer, positionY, fileName);
 	_ins->autorelease();
 	return _ins;
 }
 
-bool GameController::init(cocos2d::Layer *layer, float positionY)
+bool GameController::init(cocos2d::Layer *layer, float positionY, std::string fileName)
 {
 	_layer = layer;
 	_positionY = positionY;
@@ -18,17 +16,20 @@ bool GameController::init(cocos2d::Layer *layer, float positionY)
 	visibleSize = Director::getInstance()->getVisibleSize();
 
 
-	auto edge = Edge::create();
+	edge = Edge::create();
 	edge->setPosition(visibleSize.width / 2, visibleSize.height / 2+positionY);
+	edge->setContentSize(visibleSize);
 	layer->addChild(edge);
 
 	auto ground = Sprite::create();
 	ground->setTextureRect(Rect(0,0,visibleSize.width,3));
+	ground->setColor(Color3B::GRAY);
 	ground->setPosition(visibleSize.width/2,1.5+positionY);
 	layer->addChild(ground);
 
-	auto hero = Hero::create();
+    hero = Hero::create();
 	hero->setPosition(50, hero->getContentSize().height/2+positionY);
+	hero->setHeroSkin(fileName);
 	layer->addChild(hero);
 	resetFrames();
 	return true;
@@ -52,4 +53,14 @@ void GameController::resetFrames()
 {
 	currentFrameIndex = 0;
 	nextFrameCount = (rand()%120) + 100;
+}
+bool  GameController::hitTestPoint(Vec2 point)
+{
+	return edge->getBoundingBox().containsPoint(point);
+
+}
+
+void GameController::onUserTouch()
+{
+	hero->getPhysicsBody()->setVelocity(Vec2(0,400));
 }

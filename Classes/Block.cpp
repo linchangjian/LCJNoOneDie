@@ -21,7 +21,7 @@ bool Block::init()
 
 void Block::update(float delta)
 {
-	this->setPositionX(getPositionX()-1);
+	this->setPositionX(getPositionX()-5);
 
 	if (getPositionX() < 0)
 	{

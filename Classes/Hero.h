@@ -8,6 +8,7 @@ class Hero : public Sprite
 {
 public:
 	virtual bool init();
+	virtual void setHeroSkin(std::string fileName);
 	CREATE_FUNC(Hero);
 };
 

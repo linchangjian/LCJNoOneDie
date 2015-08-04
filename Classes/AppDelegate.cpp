@@ -23,6 +23,8 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+
+
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
@@ -34,6 +36,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	glview->setDesignResolutionSize(480,800,ResolutionPolicy::SHOW_ALL);
 	glview->setFrameSize(360,600);
 
+	SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Ino.plist");
+	SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Sakura.plist");
+	SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Karin.plist");
 
     // turn on display FPS
     director->setDisplayStats(true);

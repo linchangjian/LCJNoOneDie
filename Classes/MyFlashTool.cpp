@@ -28,3 +28,15 @@ Animate * MyFlashTool::readJsonSpriteSheet(std::string jsonFile, float delayPerU
 	return nullptr;
 }
 
+Animate * MyFlashTool::readPlistAnimate(std::string fileName, float delayPerUnit){
+	Vector<SpriteFrame*> arr;
+	for (int i = 1; i <= 6;i++)
+	{
+		std::string str = StringUtils::format("%s_Walk_0%d.png", fileName.c_str(), i);
+		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
+		arr.pushBack(frame);
+	}
+
+	auto animation = Animation::createWithSpriteFrames(arr, delayPerUnit);
+	return Animate::create(animation);
+}

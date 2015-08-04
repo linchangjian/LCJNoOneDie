@@ -8,6 +8,8 @@ class MyFlashTool
 {
 public:
 	static Animate * readJsonSpriteSheet(std::string jsonFile, float delayPerUnit);
+	static Animate * readPlistAnimate(std::string jsonFile, float delayPerUnit);
+
 };
 
 #endif // __NoOneDies_MyFlashTool_H__
