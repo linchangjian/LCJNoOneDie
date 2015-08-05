@@ -7,6 +7,8 @@ class HelloWorld : public cocos2d::LayerColor
 {
 private :
 	cocos2d::Vector<GameController*> gcs;
+	int scoreCount = 0;
+	Label* _labelSorce;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -17,7 +19,7 @@ public:
 	virtual void update(float dt);
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    
+	void timeScore(float dt);
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 };

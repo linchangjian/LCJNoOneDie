@@ -7,7 +7,7 @@ bool Block::init()
 
 	setPhysicsBody(PhysicsBody::createBox(s));
 	setTextureRect(Rect(0,0,s.width,s.height));
-	setColor(Color3B(0,0,0));
+	setColor(Color3B(255,255,255));
 	setContentSize(s);
 
 	setPositionX(visibleSize.width);

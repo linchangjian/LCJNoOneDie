@@ -23,7 +23,7 @@ bool GameController::init(cocos2d::Layer *layer, float positionY, std::string fi
 
 	auto ground = Sprite::create();
 	ground->setTextureRect(Rect(0,0,visibleSize.width,3));
-	ground->setColor(Color3B::GRAY);
+	ground->setColor(Color3B::WHITE);
 	ground->setPosition(visibleSize.width/2,1.5+positionY);
 	layer->addChild(ground);
 

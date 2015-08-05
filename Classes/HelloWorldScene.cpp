@@ -25,15 +25,20 @@ bool HelloWorld::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !LayerColor::initWithColor(Color4B(255,255,255,255)))
+    if ( !LayerColor::initWithColor(Color4B(0,0,0,0)))
     {
         return false;
     }
     Size visibleSize = Director::getInstance()->getVisibleSize();
-	
+    _labelSorce = Label::createWithTTF("Sorce 0", "arial.ttf", 30);
+	this->addChild(_labelSorce);
+	_labelSorce->setPosition(Vec2(visibleSize.width / 2, visibleSize.height - _labelSorce->getContentSize().height));
+
+	this->schedule(CC_CALLBACK_1(HelloWorld::timeScore, this), 1.0f, "test_key");
+
 	gcs.insert(0, GameController::create(this, 0,"Sakura"));
-	gcs.insert(0, GameController::create(this, 180,"Ino"));
-	gcs.insert(0, GameController::create(this, 330,"Karin"));
+	gcs.insert(0, GameController::create(this, 200,"Ino"));
+	gcs.insert(0, GameController::create(this, 400,"Karin"));
 	//gcs.insert(0, GameController::create(this, 450));
 
 	//gcs.pushBack(GameController::create(this, 180));
@@ -44,7 +49,8 @@ bool HelloWorld::init()
 	listener->onContactBegin = [this](PhysicsContact & contact)
 	{
 		this->unscheduleUpdate();
-		Director::getInstance()->replaceScene(GameOverScene::createScene());
+		this->unschedule("test_key");
+		Director::getInstance()->replaceScene(GameOverScene::createScene(scoreCount));
 		return true;
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
@@ -73,6 +79,13 @@ void HelloWorld::update(float dt)
 	{
 		(*it)->onUpdate(dt);
 	}
+}
+void HelloWorld::timeScore(float dt)
+{
+	scoreCount++;
+	char tmp[10];
+	sprintf(tmp, "Score %d", scoreCount);
+	_labelSorce->setString(tmp);
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
